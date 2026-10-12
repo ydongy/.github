@@ -1,0 +1,8 @@
+{
+  "ignore": [
+    "handbook/*",
+    "scripts/*",
+    "pull_request_template.md",
+    "ISSUE_TEMPLATE/*"
+  ]
+}

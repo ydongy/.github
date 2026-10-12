@@ -1,0 +1,37 @@
+# Reusable: checks a product repository's documents against the templates in this repository.
+#
+# Caller (in <repo>/.github/workflows/docs.yml):
+#   jobs:
+#     docs:
+#       uses: ydongy/.github/.github/workflows/docs-check.yml@main
+name: Docs check
+
+on:
+  workflow_call:
+    inputs:
+      handbook-ref:
+        description: Handbook revision, pinned alongside the caller's reusable workflow
+        type: string
+        default: main
+        required: false
+
+jobs:
+  check-docs:
+    name: Documents match the templates
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - uses: actions/checkout@v5
+        with:
+          repository: ydongy/.github
+          ref: ${{ inputs.handbook-ref }}
+          path: .handbook
+      - name: Check documents
+        env:
+          PR_BASE: ${{ github.event_name == 'pull_request' && format('origin/{0}', github.base_ref) || '' }}
+          PR_TITLE: ${{ github.event.pull_request.title }}
+          PR_LABELS: ${{ join(github.event.pull_request.labels.*.name, ',') }}
+        run: python3 .handbook/scripts/check-docs.py "$GITHUB_WORKSPACE"

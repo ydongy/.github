@@ -1,0 +1,38 @@
+name: Feature idea
+description: A new capability, filed for triage; it does not join the iteration in progress
+labels: ["feat"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        A new idea goes to the `Later` milestone and joins an iteration only through triage or a swap the
+        maintainer records (handbook/core/process.md, Roadmap and intake). Set the milestone to `Later` after filing.
+        Do not include credentials, private host details or customer data; follow the project's SECURITY.md.
+  - type: textarea
+    id: goal
+    attributes:
+      label: Goal
+      description: What is different for the user when this exists, in one or two sentences.
+    validations:
+      required: true
+  - type: textarea
+    id: fit
+    attributes:
+      label: Product goal and theme
+      description: Which goal of the product's requirement document it serves, and which roadmap theme it fits, if any.
+    validations:
+      required: true
+  - type: textarea
+    id: options
+    attributes:
+      label: Options and their cost
+      description: Optional. Add the needs-decision label when the maintainer must choose.
+    validations:
+      required: false
+  - type: textarea
+    id: origin
+    attributes:
+      label: Where it came from
+      description: Optional. For example a design review, an acceptance or a comparison with another product.
+    validations:
+      required: false

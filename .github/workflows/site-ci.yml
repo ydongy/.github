@@ -1,0 +1,49 @@
+# Reusable CI for static websites. See handbook/types/website/code.md, "Checks".
+#
+# Caller (in <repo>/.github/workflows/ci.yml):
+#   jobs:
+#     ci:
+#       uses: ydongy/.github/.github/workflows/site-ci.yml@main
+name: Site CI
+
+on:
+  workflow_call:
+    inputs:
+      python-version:
+        required: false
+        type: string
+        default: "3.x"
+
+jobs:
+  check:
+    name: i18n, build, diff, site, facts
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ inputs.python-version }}
+
+      # Sites vendor sitekit as scripts/sitekit/; the legacy per-site scripts are used until a site migrates.
+      - name: i18n consistency
+        run: |
+          if [ -f scripts/sitekit/check_i18n.py ]; then python3 scripts/sitekit/check_i18n.py; else python3 scripts/check_i18n.py; fi
+
+      - name: Build
+        run: python3 scripts/build.py
+
+      - name: Committed output matches sources
+        run: |
+          git diff --exit-code -- public/ || {
+            echo "::error::public/ is stale; run scripts/build.py and commit the result"; exit 1; }
+
+      - name: Site check
+        run: |
+          if [ -f scripts/sitekit/check_site.py ]; then python3 scripts/sitekit/check_site.py
+          elif [ -f scripts/check-site.py ]; then python3 scripts/check-site.py
+          else echo "no site check"; fi
+
+      - name: Legal facts
+        run: python3 scripts/check_facts.py
