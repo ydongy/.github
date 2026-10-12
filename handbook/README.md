@@ -1,9 +1,12 @@
 # Handbook
 
+This handbook is the process for the **closed product repositories** (loggia, barekeep). Open-source
+repositories follow the self-contained [oss.md](oss.md) and do not use the rest of it.
+
 Start with the mandatory core, then read only the guides, stacks and type preset that fit the project.
 Project decisions specify actual components and may override presets; core security and maintainer approval remain mandatory.
 
-## Every repository
+## Every closed product repository
 
 | File | Covers |
 |---|---|
@@ -50,5 +53,9 @@ Each type has a directory with the same index (`README.md`: what it is, stacks, 
 
 [templates/](templates/manifest.json): `common/` for documents every type shares, one directory per type for the
 rest; `manifest.json` says which repository type needs which document from which template.
+
+`templates/product/` holds the product-only issue templates (`ISSUE_TEMPLATE/task.yml`, `decision.yml`, and the
+milestone-aware `bug.yml`, `feature.yml`, `config.yml`) and the product `pull_request_template.md`. The account
+defaults at the repository root are generic; a closed product copies these files into its own `.github/` as needed.
 
 Changing a rule: open a PR here, then migrate consumers in separate PRs with a pinned handbook revision.

@@ -1,6 +1,6 @@
 # Development process
 
-Applies to every repository. UI design, localization and release steps apply only to projects that use them.
+Applies to every closed product repository (loggia, barekeep); open-source repositories follow [../oss.md](../oss.md). UI design, localization and release steps apply only to projects that use them.
 
 How every ydongy project is built. Product repositories do not restate this file; their
 `docs/process.md` only lists what differs.
@@ -103,7 +103,9 @@ PR (see `handbook/guides/security.md`).
 - File an issue as soon as something comes up; nothing lives only in chat. Untested technical
   assumptions get `unverified`; items awaiting the maintainer get `needs-decision`.
 - Shared labels are defined in `labels.yml` at the root of this repository and applied with
-  `scripts/sync-labels.sh`. Type labels match commit types; status labels are `milestone`,
+  `scripts/sync-labels.sh --product` (the `product` group; without the flag only the open-source `common` group is
+  applied). The product-only issue templates (`task.yml`, `decision.yml`) and pull request template are in
+  `handbook/templates/product/`; copy them into the product's own `.github/`. Type labels match commit types; status labels are `milestone`,
   `needs-decision`, `unverified`. Scope labels are per repository and never pruned by the sync.
 
 ### Roadmap and intake
@@ -113,8 +115,8 @@ Work follows `docs/roadmap.md`, not the order in which ideas arrive.
 - **One theme per version.** Each version (or unversioned iteration) in the roadmap has one theme, one GitHub
   milestone and one tracking issue, and touches one area of the code. Its spec step restructures that area
   before features are added to it.
-- **Every open issue has a milestone:** the iteration in progress, a planned one, or `Later`. Every repository
-  with open issues has a `Later` milestone for what is not scheduled. In a milestone with a tracking issue, every
+- **Every open issue has a milestone:** the iteration in progress, a planned one, or `Later`. Every closed product
+  repository with open issues has a `Later` milestone for what is not scheduled. In a milestone with a tracking issue, every
   other open issue is a sub-issue of it.
 - **New ideas go to `Later`.** Filing an issue never adds it to the iteration in progress. Ideas raised in a
   design review or an acceptance are issues of their own, not additions to the reviewed work, unless they block

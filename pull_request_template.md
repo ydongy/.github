@@ -1,24 +1,17 @@
-## What
+## Summary
 
-<!-- One or two sentences. Milestone / issue: Closes #n -->
+<!-- What changes and why, in one or two sentences. -->
 
-## Why
+## Related issue
 
-## Screenshots / recordings
+<!-- Closes #n -->
 
-<!-- Required for UI changes: light + dark; cover every state the change touches. Delete for non-UI PRs and in
-     repositories that keep no captures (handbook/guides/ui-workflow.md, Screenshots). -->
+## How tested
 
-## How to verify
-
-- [ ] 
+<!-- Commands you ran, or manual steps. -->
 
 ## Checklist
 
-- [ ] CI is green (format, build, tests)
-- [ ] Design acceptance checklist (`docs/design.md`) ticked against the signed-off mockups (UI PRs)
-- [ ] Docs updated where behaviour changed (spec / design / ADR / CHANGELOG)
-- [ ] No magic numbers; user-visible copy uses the project's localization system and declared languages
-- [ ] Security walkthrough recorded below (credentials, Keychain, network with credentials, launch agent, signing)
-
-## Known limitations
+- [ ] PR title follows [Conventional Commits](https://www.conventionalcommits.org/) (`type(scope): subject`)
+- [ ] Tests pass
+- [ ] Documentation updated where behavior changed

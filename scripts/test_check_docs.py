@@ -393,6 +393,8 @@ class HandbookTest(unittest.TestCase):
             if not p.is_file() or p.name == "manifest.json" or rel_is_mit(p):
                 continue
             rel = str(p.relative_to(templates))
+            if rel.startswith("product/"):  # copy-in files for closed products, not checked by check-docs
+                continue
             name = rel.removeprefix("common/")
             first = p.read_text().split("\n")[0]
             self.assertRegex(first, rf"(<!-- template: |\(template: ){re.escape(name)} v\d+", rel)

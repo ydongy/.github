@@ -152,7 +152,7 @@
         "docs/process.md": "common/process.md",
         "docs/adr/README.md": "common/adr-index.md",
         "design/README.md": "common/design-README.md",
-        "LICENSE": "common/LICENSE"
+        "LICENSE": "mygo-app/LICENSE"
       },
       "milestone": "common/milestone.md"
     }

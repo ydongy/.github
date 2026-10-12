@@ -1,5 +1,5 @@
-blank_issues_enabled: true
+blank_issues_enabled: false
 contact_links:
-  - name: Security vulnerability
-    url: https://github.com/ydongy/.github/blob/main/SECURITY.md
-    about: Do not open a public issue; follow the reporting instructions instead.
+  - name: Report a security vulnerability
+    url: https://github.com/ydongy/.github/security/policy
+    about: Do not open a public issue. Use the repository's Security tab and choose "Report a vulnerability".

@@ -4,7 +4,7 @@
 ## What it is
 
 The account defaults repository of ydongy: the handbook, the document templates, the shared labels, issue and PR
-templates, community health files, and the reusable CI workflows used by every repository.
+templates, community health files, and the reusable CI workflows. Issue/PR templates and community files are open-source defaults for every repository; the handbook, docs-check, check-issues and reusable workflows serve only closed products (loggia, barekeep). Open-source repositories follow `handbook/oss.md`.
 
 ## Sources of truth
 
@@ -22,14 +22,14 @@ scripts/               check-docs.py, check-issues.py, sync-labels.sh
 profile/               account profile page
 ```
 
-Nothing product-specific lives here; use `<Name>` and `<domain>` in examples.
+Reusable workflow files and handbook paths pinned by products must not be renamed or removed. Nothing product-specific lives here; use `<Name>` and `<domain>` in examples.
 
 ## Commands
 
 ```bash
 python3 scripts/check-docs.py .        # documents against the templates
 python3 scripts/check-issues.py <owner/repo>   # open issues against the milestone rules (needs gh)
-scripts/sync-labels.sh <owner/repo>    # apply labels.yml
+scripts/sync-labels.sh [--product] <owner/repo>    # apply labels.yml (common; --product adds product labels)
 ```
 
 ## Project rules

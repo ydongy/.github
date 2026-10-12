@@ -1,38 +1,28 @@
-name: Feature idea
-description: A new capability, filed for triage; it does not join the iteration in progress
-labels: ["feat"]
+name: Feature request
+description: Suggest an idea or improvement
+labels: ["enhancement"]
 body:
   - type: markdown
     attributes:
       value: |
-        A new idea goes to the `Later` milestone and joins an iteration only through triage or a swap the
-        maintainer records (handbook/core/process.md, Roadmap and intake). Set the milestone to `Later` after filing.
-        Do not include credentials, private host details or customer data; follow the project's SECURITY.md.
+        Please search existing issues first. For larger changes, discuss here before opening a pull request.
   - type: textarea
-    id: goal
+    id: problem
     attributes:
-      label: Goal
-      description: What is different for the user when this exists, in one or two sentences.
+      label: Problem
+      description: What are you trying to do, and what gets in the way?
     validations:
       required: true
   - type: textarea
-    id: fit
+    id: solution
     attributes:
-      label: Product goal and theme
-      description: Which goal of the product's requirement document it serves, and which roadmap theme it fits, if any.
+      label: Proposed solution
+      description: What would you like to happen?
     validations:
       required: true
   - type: textarea
-    id: options
+    id: alternatives
     attributes:
-      label: Options and their cost
-      description: Optional. Add the needs-decision label when the maintainer must choose.
-    validations:
-      required: false
-  - type: textarea
-    id: origin
-    attributes:
-      label: Where it came from
-      description: Optional. For example a design review, an acceptance or a comparison with another product.
+      label: Alternatives considered
     validations:
       required: false
