@@ -82,9 +82,17 @@ scope labels are never created or removed by the sync.
 
 ### Releases
 
-- Repositories with releases use release-please (`googleapis/release-please-action@v4`, release type `simple`,
-  `release-please-config.json` and `.release-please-manifest.json`, a `VERSION` file when useful). Tags are
-  `vX.Y.Z`. The workflow has `contents: write` and `pull-requests: write` and uses `GITHUB_TOKEN`.
+- Repositories with releases use release-please (`googleapis/release-please-action@v5`, release type `simple`,
+  `release-please-config.json` and `.release-please-manifest.json` with `include-component-in-tag: false`, a
+  `VERSION` file when useful). Tags are `vX.Y.Z`; release-please creates the tag and the GitHub Release when its
+  release pull request is merged.
+- release-please runs with a token of the account's release GitHub App, never `GITHUB_TOKEN` or a personal access
+  token: pull requests opened with `GITHUB_TOKEN` start no workflows, so the checks the `main` ruleset requires
+  would never run. The workflow's own permissions are `contents: read`; a first step mints the token with
+  `actions/create-github-app-token` (`client-id` and `private-key` from the repository secrets
+  `RELEASE_APP_CLIENT_ID` and `RELEASE_APP_PRIVATE_KEY`, `repositories: <repo>`, `permission-contents: write`,
+  `permission-pull-requests: write`). The app has only Contents and Pull requests write, no webhook, is installable
+  only on this account, and is installed only on the repositories that release with it.
 - Other repositories (templates, websites, tooling) have no release automation; `CHANGELOG.md` `[Unreleased]` is
   maintained by hand.
 
@@ -235,8 +243,9 @@ Check each item when creating a repository.
       request. Private repositories on GitHub Free cannot have rulesets or branch protection: follow the same
       flow by convention (branch, pull request, green checks, squash merge).
 - [ ] Private vulnerability reporting enabled (public repositories)
-- [ ] Releases: release-please configured, or none (see Releases); closed products: release pipeline files and
-      the `release` environment with a deployment branch policy limited to `main`
+- [ ] Releases: release-please configured, or none (see Releases); with release-please, the release app installed
+      on the repository and `RELEASE_APP_CLIENT_ID` / `RELEASE_APP_PRIVATE_KEY` set; closed products: release
+      pipeline files and the `release` environment with a deployment branch policy limited to `main`
 - [ ] Closed products: macOS CI job runs only on manual dispatch and release pull requests
 - [ ] Closed products not yet on sale: follow [Pre-release products](#pre-release-products) (badge, `docs/launch.md`,
       no release environment)
