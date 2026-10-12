@@ -19,5 +19,5 @@ changes that can be verified.
 
 ## Shared resources
 
-- [Handbook](https://github.com/ydongy/.github/tree/main/handbook): rules, guides, stack conventions and document templates.
+- [Repository standard](https://github.com/ydongy/.github/blob/main/STANDARD.md): how every repository is set up.
 - [Security reporting](https://github.com/ydongy/.github/blob/main/SECURITY.md)

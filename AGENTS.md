@@ -1,43 +1,35 @@
-<!-- template: AGENTS.md v1 -->
 # AGENTS.md
 
 ## What it is
 
-The account defaults repository of ydongy: the handbook, the document templates, the shared labels, issue and PR
-templates, community health files, and the reusable CI workflows. Issue/PR templates and community files are open-source defaults for every repository; the handbook, docs-check, check-issues and reusable workflows serve only closed products (loggia, barekeep). Open-source repositories follow `handbook/oss.md`.
+The account defaults repository of ydongy: community health files, issue and pull request templates, the
+account profile, the shared label set and `STANDARD.md`, the repository standard. It has no product code.
 
-## Sources of truth
-
-`handbook/` is the single source for how repositories are structured, documented, built and released.
-`handbook/templates/manifest.json` says which repository type needs which documents. Core rules are mandatory. Type and stack presets apply to the components a project actually uses;
-a documented project decision may override a preset, but not the security or maintainer-approval rules.
-
-## Directory boundaries
+## Layout
 
 ```
-handbook/              core/ (mandatory), guides/ (conditional), stacks/ (per language), types/ (presets),
-                       playbooks/, templates/ (common/ and one directory per type)
-.github/workflows/     reusable workflows (workflow_call), called from product repositories
-scripts/               check-docs.py, check-issues.py, sync-labels.sh
-profile/               account profile page
+STANDARD.md            the repository standard (single source of truth)
+ISSUE_TEMPLATE/        issue forms; pull_request_template.md is the PR template
+profile/README.md      account profile
+labels.yml             common labels; scripts/sync-labels.sh applies them
+.github/               CODEOWNERS, dependabot.yml, workflows (ci.yml, pr-title.yml)
 ```
-
-Reusable workflow files and handbook paths pinned by products must not be renamed or removed. Nothing product-specific lives here; use `<Name>` and `<domain>` in examples.
 
 ## Commands
 
 ```bash
-python3 scripts/check-docs.py .        # documents against the templates
-python3 scripts/check-issues.py <owner/repo>   # open issues against the milestone rules (needs gh)
-scripts/sync-labels.sh [--product] <owner/repo>    # apply labels.yml (common; --product adds product labels)
+actionlint .github/workflows/*.yml     # lint workflows
+scripts/sync-labels.sh <owner/repo>    # apply labels.yml (needs gh)
 ```
 
-## Project rules
+## Conventions
 
-- A change to a template raises its version (`<!-- template: <name> v<N> -->`) and every product repository
-  migrates explicitly with its pinned handbook revision (`handbook/core/docs.md`).
-- A change to a reusable workflow is tested from a product repository's branch before it is merged.
+- English. Conventional Commits for commits and PR titles: `feat|fix|docs|refactor|perf|test|build|ci|chore|revert(scope)!: subject`.
+- Branches are named `<type>/<issue>-<slug>`; pull requests are squash-merged by the maintainer.
+- A rule change goes into `STANDARD.md` only; do not duplicate rules in other files.
+- Keep the community files short and written for outside contributors.
 
 ## Red lines
 
-This repository is public: no credentials, no internal hostnames. See `handbook/core/agents.md`.
+- This repository is public: no credentials, no internal hostnames, no product code.
+- Do not change repository settings or push without the maintainer's confirmation.
