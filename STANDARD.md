@@ -16,6 +16,7 @@ Repositories are self-contained: they do not call reusable workflows, scripts or
   - [Labels](#labels)
   - [Releases](#releases)
 - [Part 2: Closed-source products](#part-2-closed-source-products)
+  - [Pre-release products](#pre-release-products)
 - [Repository checklist](#repository-checklist)
 - [Starting a new project](#starting-a-new-project)
 
@@ -132,6 +133,45 @@ Product documents stay in `docs/`: `spec.md`, `design.md`, `legal.md`, `website.
   history is folded into the changelog or the roadmap. `docs/roadmap.md` may stay as a plain list without
   milestone or tracking-issue rules.
 
+### Pre-release products
+
+A closed product whose code is finished but which is not yet on sale (no domain, mailbox, download host or release
+credentials) is pre-release. The state is explicit and temporary; it ends with the launch pull request.
+
+**Status marking**
+
+- `README.md` and `README.zh-CN.md` carry the badge `![Status](https://img.shields.io/badge/status-pre--release-orange)`
+  and one sentence of status that says the product is not available yet and links `docs/launch.md`. The website
+  repository uses `status-pre--launch` instead.
+- No link or badge points to a domain that does not resolve yet. No public text promises a mailbox or download
+  address that does not exist yet; the security contact is the account's SECURITY policy (GitHub private
+  vulnerability reporting).
+- Text that is private to the repository (`LICENSE`, `docs/`, code constants) may already name the planned domain;
+  `docs/launch.md` lists every such place.
+
+**Release machinery**
+
+- No `release` environment, no release secrets, no release workflow, no automatic publishing.
+- The version and the changelog are maintained as usual. Notes stay under `## [Unreleased]` (or the first version's
+  section stays a draft). No tag and no GitHub Release is created.
+
+**`docs/launch.md`**
+
+- Required. It is the launch checklist and the single source of truth: Markdown checkboxes grouped by phase, each item
+  stating what to do, where, and how to verify it, including every place that depends on the planned domain.
+- Items are checked off before launch; the launch pull request links the file.
+
+**Launch**
+
+1. Complete the infrastructure phases of `docs/launch.md` (domain, site, mail, downloads and updates, signing,
+   legal and content).
+2. One pull request titled `chore(release): launch <version>` removes the pre-release state: the README badge and
+   status sentence (both languages), the website's pre-launch marking, and restores the support mailbox and
+   download links.
+3. The version bump pull request publishes the release (`docs/releasing.md`).
+4. After the release, run the post-launch checks, then archive the checklist: keep the file, add the launch date
+   and mark it as done.
+
 ### Issues and labels
 
 No milestone, tracking-issue or `Later` rules, and no issue-checking script. Labels are the common set, plus
@@ -190,11 +230,16 @@ Check each item when creating a repository.
       repositories)
 - [ ] Labels synced: `scripts/sync-labels.sh ydongy/<repo>` from `ydongy/.github`
 - [ ] Squash merge only; the default commit message is the pull request title; branches deleted on merge
-- [ ] Branch protection or ruleset on `main`: pull request required, the CI and PR title checks required
+- [ ] Ruleset `main` on the default branch: no deletion, no force push, linear history, pull request required
+      (squash only), the CI and PR title checks required; repository admins may bypass only when merging a pull
+      request. Private repositories on GitHub Free cannot have rulesets or branch protection: follow the same
+      flow by convention (branch, pull request, green checks, squash merge).
 - [ ] Private vulnerability reporting enabled (public repositories)
 - [ ] Releases: release-please configured, or none (see Releases); closed products: release pipeline files and
       the `release` environment with a deployment branch policy limited to `main`
 - [ ] Closed products: macOS CI job runs only on manual dispatch and release pull requests
+- [ ] Closed products not yet on sale: follow [Pre-release products](#pre-release-products) (badge, `docs/launch.md`,
+      no release environment)
 
 ## Starting a new project
 
