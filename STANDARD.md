@@ -23,10 +23,14 @@ Repositories are self-contained: they do not call reusable workflows, scripts or
 
 ### Root files
 
-- `README.md`: `# Name`, a one-line description, badges (CI, License MIT; a repository with releases also shows
-  the latest release), then the sections Features (optional), Quick start, Usage, Development (exact commands),
-  Contributing (link) and License. English. A Chinese README may exist as `README.zh-CN.md`, with an
-  `English | 中文` switch line at the top of both.
+- `README.md` and `README.zh-CN.md`: English (default) and Simplified Chinese, same structure and same facts.
+  Both open with a centered block: `# Name`, a one-line description, badges (CI using the repository's real
+  workflow file, License MIT; extra badges only when real: latest release for release-please repositories,
+  platform, website) and a language switch line (`**English** · [简体中文](README.zh-CN.md)`, mirrored in the
+  Chinese file). Closed products use a `license-proprietary-lightgrey` badge and a Website badge, and no CI
+  badge. Sections in this order, omitting one only if it does not apply: Features, Requirements, Quick start,
+  Usage, Development (exact commands), Contributing (link), Security, License; Acknowledgements may precede
+  License. Every command must be verified against the repository's scripts.
 - `LICENSE`: MIT, `Copyright (c) 2026 ydongy` (closed products: see Part 2).
 - `CHANGELOG.md`: Keep a Changelog style with an `## [Unreleased]` section. Repositories that use release-please
   let it write the entries. Do not keep `CHANGELOG.zh.md` unless a website consumes it.
@@ -170,7 +174,7 @@ Check each item when creating a repository.
 
 - [ ] Name, one-line description and topics set; visibility chosen (open source: public; closed product: private)
 - [ ] `LICENSE` matches the visibility (MIT or proprietary)
-- [ ] `README.md` has the required sections and badges
+- [ ] `README.md` and `README.zh-CN.md` have the required sections, badges and language switch line
 - [ ] `CONTRIBUTING.md` lists the exact test and lint commands (open source may inherit the default)
 - [ ] `AGENTS.md` is self-contained; `CLAUDE.md` is the single line `@AGENTS.md`; no `GEMINI.md`, no
       `.github/copilot-instructions.md`
