@@ -1,0 +1,41 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  lint:
+    name: Lint workflows and config
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v5
+      - name: actionlint
+        uses: docker://rhysd/actionlint:1.7.12
+        with:
+          args: -color
+      - name: Parse YAML
+        run: |
+          ruby -ryaml -e '
+            files = Dir["ISSUE_TEMPLATE/*.yml", ".github/*.yml", ".github/workflows/*.yml", "labels.yml"]
+            files.each { |f| YAML.safe_load(File.read(f), aliases: true); puts "ok #{f}" }
+          '
+      - name: Check labels.yml
+        run: |
+          ruby -ryaml -e '
+            labels = YAML.safe_load(File.read("labels.yml")).fetch("common")
+            bad = labels.reject { |l| l["name"] && l["color"] =~ /\A\h{6}\z/ && l["description"] }
+            abort "invalid labels: #{bad}" unless bad.empty?
+            puts "#{labels.size} labels"
+          '
+      - name: Shell syntax
+        run: bash -n scripts/sync-labels.sh

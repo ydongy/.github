@@ -1,18 +1,15 @@
 #!/bin/bash
 # Create or update labels from labels.yml in one or more repositories.
 #
-#   scripts/sync-labels.sh [--product] <owner/repo> [<owner/repo> ...]
+#   scripts/sync-labels.sh <owner/repo> [<owner/repo> ...]
 #
-# Default: the `common` group (open-source friendly labels). With --product the `product` group
-# (handbook type/status labels for closed product repositories) is applied as well.
 # Existing labels with the same name are updated (color, description); other labels in the repository
 # are left alone, so per-repository scope labels survive. Needs gh with repo scope and python3.
 set -euo pipefail
 
 cd "$(dirname "$0")/.."
 groups=common
-if [ "${1:-}" = "--product" ]; then groups="common product"; shift; fi
-[ $# -ge 1 ] || { sed -n '2,9p' "$0" | sed 's/^# \{0,1\}//'; exit 1; }
+[ $# -ge 1 ] || { sed -n '2,7p' "$0" | sed 's/^# \{0,1\}//'; exit 1; }
 
 # labels.yml has top-level group keys, each a list; parse it without PyYAML so the script runs anywhere.
 labels=$(GROUPS_WANTED="$groups" python3 - <<'PY'

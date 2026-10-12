@@ -1,38 +1,37 @@
-<!-- template: account/README.md v1 -->
 # .github
 
-Account-wide defaults for the repositories under ydongy. This repository has two layers.
+Account-wide defaults for the repositories under ydongy. This repository is public because GitHub applies
+account defaults only from a public `.github` repository. It never contains product code, credentials or
+internal hostnames.
 
-1. **Community defaults and profile (all repositories).** Issue templates (bug, feature, documentation), the pull
-   request template, `SECURITY.md`, `CODE_OF_CONDUCT.md`, `CONTRIBUTING.md` and the account `profile/`. GitHub
-   applies them to every repository that has none of its own. They are written for open source.
-2. **Closed-product process (loggia, barekeep and similar only).** The handbook (`handbook/core/` and the
-   type, stack and template material), `scripts/check-docs.py`, `scripts/check-issues.py` and the reusable
-   workflows. Product-only issue and pull request templates live in `handbook/templates/product/`; a closed
-   product copies what it needs into its own `.github/`.
-
-Open-source repositories do not use layer 2. They follow [handbook/oss.md](handbook/oss.md) and stay
-self-contained.
-
-## Contents
+## What is here
 
 | Path | Purpose |
 |---|---|
-| `handbook/oss.md` | Standard for every open-source repository |
-| `handbook/` | Closed-product process: mandatory `core/`, conditional `guides/`, language `stacks/` and repository `types/` |
-| `handbook/templates/` | Templates for every kind of document, and `manifest.json` (which repository type needs which) |
-| `.github/workflows/` | Reusable workflows for closed products (macOS, MyGo, websites, pipelines, document checks), plus this repository's own CI |
-| `pull_request_template.md`, `ISSUE_TEMPLATE/` | Generic defaults for every repository that has none of its own |
-| `handbook/templates/product/` | Product-only issue templates (task, decision) and the product pull request template |
-| `SECURITY.md`, `CODE_OF_CONDUCT.md`, `CONTRIBUTING.md` | Community health files GitHub applies to repositories that have none of their own |
-| `labels.yml`, `scripts/sync-labels.sh` | `common` and `product` label groups; the script applies `common` by default and `product` with `--product` |
-| `scripts/check-docs.py` | Closed products: checks a repository's documents against the templates |
-| `scripts/check-issues.py` | Closed products: checks a repository's open issues against the milestone rules |
-| `profile/README.md` | Account profile |
-| `LICENSE` | MIT |
+| `ISSUE_TEMPLATE/`, `pull_request_template.md` | Issue forms (bug, feature, documentation) and a short pull request template |
+| `CONTRIBUTING.md`, `CODE_OF_CONDUCT.md`, `SECURITY.md` | Community health files |
+| `profile/README.md` | The account profile page |
+| `STANDARD.md` | The single repository standard: open-source baseline, closed-source overlay, checklist |
+| `labels.yml`, `scripts/sync-labels.sh` | The common label set and the script that applies it |
+| `.github/` | CODEOWNERS, Dependabot, `pr-title.yml` and this repository's own CI |
 
-## Visibility
+## Community defaults
 
-This repository is public: GitHub applies account-wide defaults only from a public `.github` repository, and the
-reusable workflows must be callable from the closed product repositories. It never contains product code,
-credentials or internal hostnames; examples use `<Name>` and `<domain>`.
+GitHub uses the issue forms, pull request template, `CONTRIBUTING.md`, `CODE_OF_CONDUCT.md` and `SECURITY.md`
+for every repository under the account that does not have its own copy. A repository that needs different text
+adds its own file; see [STANDARD.md](STANDARD.md) for when that is appropriate.
+
+## Standard
+
+[STANDARD.md](STANDARD.md) describes how every repository is set up. Repositories are self-contained: they do
+not call workflows or scripts from this repository.
+
+## Labels
+
+```bash
+scripts/sync-labels.sh ydongy/<repo> [ydongy/<repo2> ...]
+```
+
+Creates or updates every label in `labels.yml` (bug, enhancement, documentation, question, good first issue,
+help wanted, dependencies, duplicate, invalid, wontfix). Existing labels with the same name get the listed color
+and description; other labels are left alone. Needs `gh` with repo scope and `python3`.
