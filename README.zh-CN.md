@@ -37,7 +37,7 @@ scripts/sync-labels.sh ydongy/<repo>
 
 | 路径 | 用途 |
 |---|---|
-| `ISSUE_TEMPLATE/`、`pull_request_template.md` | Issue 表单和 Pull Request 模板 |
+| `.github/ISSUE_TEMPLATE/`、`pull_request_template.md` | Issue 表单和 Pull Request 模板 |
 | `CONTRIBUTING.md`、`CODE_OF_CONDUCT.md`、`SECURITY.md` | 社区健康文件 |
 | `profile/README.md` | 账号个人主页（中英双语；GitHub 只渲染这一份） |
 | `STANDARD.md` | 开源基线、闭源补充要求、检查清单 |

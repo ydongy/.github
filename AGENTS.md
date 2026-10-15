@@ -9,10 +9,11 @@ account profile, the shared label set and `STANDARD.md`, the repository standard
 
 ```
 STANDARD.md            the repository standard (single source of truth)
-ISSUE_TEMPLATE/        issue forms; pull_request_template.md is the PR template
+pull_request_template.md  the PR template
 profile/README.md      account profile
 labels.yml             common labels; scripts/sync-labels.sh applies them
-.github/               CODEOWNERS, dependabot.yml, workflows (ci.yml, pr-title.yml)
+.github/               ISSUE_TEMPLATE/ (issue forms; GitHub reads account defaults only from here),
+                       CODEOWNERS, dependabot.yml, workflows (ci.yml, pr-title.yml)
 ```
 
 ## Commands

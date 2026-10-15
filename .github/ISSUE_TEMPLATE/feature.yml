@@ -26,3 +26,10 @@ body:
       label: Alternatives considered
     validations:
       required: false
+  - type: textarea
+    id: done
+    attributes:
+      label: Done when
+      description: How we know it is finished, for example tests, documents or checks.
+    validations:
+      required: false
