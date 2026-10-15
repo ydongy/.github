@@ -7,6 +7,9 @@ The single source of truth for how repositories owned by ydongy are set up. Ever
 Repositories are self-contained: they do not call reusable workflows, scripts or pinned revisions from
 `ydongy/.github`. They only inherit its community health files and templates through GitHub's account defaults.
 
+Forks of other people's repositories (currently `ghostty-config`) are not covered: they keep the upstream's files,
+license and settings.
+
 ## Contents
 
 - [Part 1: All repositories](#part-1-all-repositories)
