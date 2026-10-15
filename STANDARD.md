@@ -192,8 +192,11 @@ Keep `design/screens/*.html` mockups, tokens, icon sources and their scripts (`c
 `export-icons.mjs`, `icon.html`, `*-icon.js`, `icon-layers`). `design/README.md` is a short self-contained
 description: what is there, how to preview it, how to regenerate icons. No status ledger, status words, A/B
 tiers, sign-off states or screenshot checks. `AGENTS.md` keeps one design rule: "A UI change starts from the
-mockup in design/screens/; the maintainer confirms the visual direction before UI code is written." Screenshots
-in `design/screenshots` may stay as assets.
+mockup in design/screens/; the maintainer confirms the visual direction before UI code is written."
+
+Screenshots of the running app are not tracked. Capture scripts write them to `design/screenshots/`, which
+`.gitignore` lists; a UI pull request shows light and dark screenshots in its description, and the README image
+links to the product website. A repository that once tracked screenshots removes them from its history.
 
 ### Agent configuration
 
@@ -247,6 +250,7 @@ Check each item when creating a repository.
       on the repository and `RELEASE_APP_CLIENT_ID` / `RELEASE_APP_PRIVATE_KEY` set; closed products: release
       pipeline files and the `release` environment with a deployment branch policy limited to `main`
 - [ ] Closed products: macOS CI job runs only on manual dispatch and release pull requests
+- [ ] Closed products: no screenshots tracked, in the tree or in the history; `design/screenshots/` ignored
 - [ ] Closed products not yet on sale: follow [Pre-release products](#pre-release-products) (badge, `docs/launch.md`,
       no release environment)
 
