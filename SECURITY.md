@@ -4,7 +4,9 @@
 
 Please do not open a public issue. Use GitHub's private vulnerability reporting: open the affected repository's
 **Security** tab and choose **Report a vulnerability**
-(`https://github.com/ydongy/<repo>/security/advisories/new`).
+(`https://github.com/ydongy/<repo>/security/advisories/new`). Closed-source products live in private
+repositories, where that form is not open to you: send the report to the support address in the product's README
+and on its website instead.
 
 Include what you found, how to reproduce it, the project version or commit and the relevant environment.
 Do not include credentials, private host details or personal data. You will get an acknowledgement within

@@ -40,7 +40,8 @@ license and settings.
   repository's license without the maintainer's decision.
 - `THIRD_PARTY.md`: only when the repository ships third-party code or licenses in its build artifacts.
 - `CHANGELOG.md`: Keep a Changelog style with an `## [Unreleased]` section. Repositories that use release-please
-  let it write the entries and have no `## [Unreleased]` section (release-please inserts each release on top). Do not keep `CHANGELOG.zh.md` unless a website consumes it.
+  let it write the entries and have no `## [Unreleased]` section (release-please inserts each release on top).
+  Do not keep `CHANGELOG.zh.md` unless a website consumes it.
 - `CONTRIBUTING.md`: per repository, short, English. It states: issues and pull requests may be written in
   English or Simplified Chinese; open an issue before large changes; development
   setup; the exact test and lint commands; Conventional Commits for commit messages and pull request titles
@@ -70,7 +71,9 @@ license and settings.
 
 - `CODEOWNERS`: `* @ydongy`
 - `dependabot.yml`: `github-actions` monthly, plus the repository's own ecosystem (gomod, pip, npm, swift)
-  weekly when present.
+  weekly when present. Every entry sets `commit-message: { prefix: "ci" }` (actions) or `{ prefix: "build" }`
+  (the ecosystem) and `labels: [dependencies]`, so Dependabot does not create ecosystem labels such as
+  `github_actions` or `go`.
 - `workflows/ci.yml`: self-contained; runs on `pull_request` and on push to `main`;
   `permissions: contents: read`; concurrency with cancel-in-progress for pull requests; actions pinned to major
   tags (for example `actions/checkout@v5`).
@@ -101,8 +104,10 @@ Screenshots for a pull request go into the pull request body, not into the repos
 `scripts/sync-labels.sh <owner/repo>` in `ydongy/.github` applies the labels in `labels.yml` (bug, enhancement,
 documentation, question, good first issue, help wanted, dependencies, duplicate, invalid, wontfix). A repository
 may add its own scope labels (for example `ui`, `accessibility`, `scope:web`); the sync never creates or removes
-them. Labels that duplicate a Conventional Commits type (`feat`, `fix`, `docs` and so on) or encode a process
-state (`needs-decision`, `needs-triage`, `accepted`) are not used.
+them. release-please keeps its `autorelease: pending` and `autorelease: tagged` labels. Labels that Dependabot
+creates by itself (`github_actions`, `go` and the like) are deleted. Labels that duplicate a Conventional Commits
+type (`feat`, `fix`, `docs` and so on) or encode a process state (`needs-decision`, `needs-triage`, `accepted`) are
+not used.
 
 ### Releases
 
@@ -188,8 +193,8 @@ credentials) is pre-release. The state is explicit and temporary; it ends with t
   and one sentence of status that says the product is not available yet and links `docs/launch.md`. The website
   repository uses `status-pre--launch` instead.
 - No link or badge points to a domain that does not resolve yet. No public text promises a mailbox or download
-  address that does not exist yet; the security contact is the account's SECURITY policy (GitHub private
-  vulnerability reporting).
+  address that does not exist yet; the README's Security section links the account's SECURITY policy. The support
+  mailbox becomes the security contact with the launch pull request.
 - Text that is private to the repository (`LICENSE`, `docs/`, code constants) may already name the planned domain;
   `docs/launch.md` lists every such place.
 
@@ -210,8 +215,8 @@ credentials) is pre-release. The state is explicit and temporary; it ends with t
 1. Complete the infrastructure phases of `docs/launch.md` (domain, site, mail, downloads and updates, signing,
    legal and content).
 2. One pull request titled `chore(release): launch <version>` removes the pre-release state: the README badge and
-   status sentence (both languages), the website's pre-launch marking, and restores the support mailbox and
-   download links.
+   status sentence (both languages), the website's pre-launch marking, and restores the support mailbox (also as
+   the security contact in the README) and download links.
 3. The version bump pull request publishes the release (`docs/releasing.md`).
 4. After the release, run the post-launch checks, then archive the checklist: keep the file, add the launch date
    and mark it as done.
