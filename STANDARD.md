@@ -37,7 +37,7 @@ Repositories are self-contained: they do not call reusable workflows, scripts or
   repository's license without the maintainer's decision.
 - `THIRD_PARTY.md`: only when the repository ships third-party code or licenses in its build artifacts.
 - `CHANGELOG.md`: Keep a Changelog style with an `## [Unreleased]` section. Repositories that use release-please
-  let it write the entries. Do not keep `CHANGELOG.zh.md` unless a website consumes it.
+  let it write the entries and have no `## [Unreleased]` section (release-please inserts each release on top). Do not keep `CHANGELOG.zh.md` unless a website consumes it.
 - `CONTRIBUTING.md`: per repository, short, English. It states: issues and pull requests may be written in
   English or Simplified Chinese; open an issue before large changes; development
   setup; the exact test and lint commands; Conventional Commits for commit messages and pull request titles
@@ -263,7 +263,7 @@ Check each item when creating or auditing a repository.
       the default)
 - [ ] `AGENTS.md` is self-contained with the red lines and the "Issues and pull requests" section; `CLAUDE.md` is
       the single line `@AGENTS.md`; no `GEMINI.md`, no `.github/copilot-instructions.md`
-- [ ] `CHANGELOG.md` has `## [Unreleased]` (closed products: plus `CHANGELOG.zh.md`)
+- [ ] `CHANGELOG.md` has `## [Unreleased]`, except with release-please (closed products: plus `CHANGELOG.zh.md`)
 - [ ] `.editorconfig` present; toolchain pins (`.go-version`, `.node-version`) where the ecosystem has them
 - [ ] `.github/CODEOWNERS` is `* @ydongy`
 - [ ] `.github/dependabot.yml`: github-actions monthly plus the repository's ecosystem weekly
