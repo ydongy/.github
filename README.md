@@ -38,7 +38,7 @@ scripts/sync-labels.sh ydongy/<repo>
 
 | Path | Purpose |
 |---|---|
-| `ISSUE_TEMPLATE/`, `pull_request_template.md` | Issue forms and the pull request template |
+| `.github/ISSUE_TEMPLATE/`, `pull_request_template.md` | Issue forms and the pull request template |
 | `CONTRIBUTING.md`, `CODE_OF_CONDUCT.md`, `SECURITY.md` | Community health files |
 | `profile/README.md` | The account profile page (bilingual; GitHub renders only this file) |
 | `STANDARD.md` | Open-source baseline, closed-source overlay, checklist |

@@ -26,7 +26,7 @@ jobs:
       - name: Parse YAML
         run: |
           ruby -ryaml -e '
-            files = Dir["ISSUE_TEMPLATE/*.yml", ".github/*.yml", ".github/workflows/*.yml", "labels.yml"]
+            files = Dir[".github/ISSUE_TEMPLATE/*.yml", ".github/*.yml", ".github/workflows/*.yml", "labels.yml"]
             files.each { |f| YAML.safe_load(File.read(f), aliases: true); puts "ok #{f}" }
           '
       - name: Check labels.yml
